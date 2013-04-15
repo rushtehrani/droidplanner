@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:id="@+id/menu_zoom"
-        android:icon="@drawable/actionsearch"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_zoom"/>
-    <item
     	android:id="@+id/menu_flight_modes_spinner"
     	android:showAsAction="always"
     	android:actionViewClass="com.droidplanner.widgets.spinners.SpinnerSelfSelect" 
@@ -15,6 +10,11 @@
     	android:showAsAction="always"
     	android:actionViewClass="com.droidplanner.widgets.spinners.SelectWaypointSpinner" 
     	tools:ignore="MenuTitle"/>
+    <item
+        android:id="@+id/menu_zoom"
+        android:icon="@drawable/actionsearch"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_zoom"/>
     <item
         android:id="@+id/menu_load_from_apm"
         android:icon="@drawable/avdownload"
