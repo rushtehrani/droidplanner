@@ -1,5 +1,10 @@
 package com.droidplanner;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.InputDevice;
@@ -14,7 +19,7 @@ import com.droidplanner.widgets.joystick.DualJoystickView;
 import com.droidplanner.widgets.joystick.JoystickMovedListener;
 
 public class RCActivity extends SuperActivity implements
-		 OnClickListener {
+		 OnClickListener, SensorEventListener {
 
 
 	private Button bTogleRC;
@@ -41,6 +46,10 @@ public class RCActivity extends SuperActivity implements
 		bTogleRC = (Button) findViewById(R.id.bTogleRC);
 		bTogleRC.setOnClickListener(this);
 
+		SensorManager mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		Sensor mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		mSensorManager.registerListener((SensorEventListener) this, mSensor,SensorManager.SENSOR_DELAY_NORMAL);
+		Log.d("SENSOR", "Listner");
 		
 		rcOutput = new RcOutput(app.MAVClient,this);
 	}
@@ -51,7 +60,6 @@ public class RCActivity extends SuperActivity implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_pid, menu);
 		connectButton = menu.findItem(R.id.menu_connect);
-
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -113,6 +121,28 @@ public class RCActivity extends SuperActivity implements
 		public void OnMoved(double pan, double tilt) {
 			rcOutput.setRcChannel(RcOutput.AILERON, pan);
 			rcOutput.setRcChannel(RcOutput.ELEVATOR, tilt);
+			Log.d("RC","roll:"+pan+"\tpitch:"+tilt);
 		}
 	};
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {		
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		float roll = constrainValue(2 * event.values[0]/ SensorManager.GRAVITY_EARTH, -1f, 1f);
+		float pitch = constrainValue(2 * event.values[1]/ SensorManager.GRAVITY_EARTH, -1f, 1f);
+		rJoystick.OnMoved(roll, pitch);
+	}
+
+	private float constrainValue(float value, float minValue, float ainValue) {
+		if (value<minValue) {
+			return minValue;
+		} else if (value>ainValue) {
+			return ainValue;
+		} else {
+			return value;
+		}
+	}
 }
