@@ -1,3 +1,21 @@
+## Droidplanner v0.8.3
+* German language avaliable
+* Removing old Terminal screen
+* APM calibration using a menu button.
+
+## Droidplanner v0.8.2
+* Fix small bug that ocurred when logging was enabled.
+
+## Droidplanner v0.8.1
+* Russian language avaliable
+* Ability to read/save parameters from/to a .param file.
+* Improvements to the code structure
+
+## Droidplanner v0.8.0
+* Parameter screen, with the ability to read/write/save parameters from an ArduPilot board
+* Camera screen, virtual sticks to control a camera gimbal
+* Follow-me mode, just a beta test of this mode (disabled by default)
+
 ## Droidplanner v0.7.8
 * Fix bug in the MAVlink conenction
 

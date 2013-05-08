@@ -1,4 +1,4 @@
-package com.droidplanner;
+package com.droidplanner.activitys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +12,16 @@ import android.widget.Toast;
 
 import com.MAVLink.waypoint;
 import com.droidplanner.DroidPlannerApp.OnWaypointReceivedListner;
-import com.droidplanner.MAVLink.MissionReader;
-import com.droidplanner.MAVLink.MissionWriter;
+import com.droidplanner.R;
 import com.droidplanner.dialogs.AltitudeDialog.OnAltitudeChangedListner;
+import com.droidplanner.dialogs.OpenFileDialog;
 import com.droidplanner.dialogs.OpenMissionDialog;
 import com.droidplanner.dialogs.PolygonDialog;
 import com.droidplanner.fragments.PlanningMapFragment;
 import com.droidplanner.fragments.PlanningMapFragment.OnMapInteractionListener;
-import com.droidplanner.waypoints.Polygon;
+import com.droidplanner.helpers.Polygon;
+import com.droidplanner.waypoints.MissionReader;
+import com.droidplanner.waypoints.MissionWriter;
 import com.google.android.gms.maps.model.LatLng;
 
 public class PlanningActivity extends SuperActivity implements OnMapInteractionListener, OnWaypointReceivedListner, OnAltitudeChangedListner{
@@ -126,9 +128,6 @@ public class PlanningActivity extends SuperActivity implements OnMapInteractionL
 		case R.id.menu_zoom:
 			planningMapFragment.zoomToExtents(drone.getAllCoordinates());
 			return true;
-		case R.id.menu_default_alt:
-			changeDefaultAlt();
-			return true;
 		case R.id.menu_polygon:
 			setModeToPolygon();
 			return true;
@@ -149,16 +148,14 @@ public class PlanningActivity extends SuperActivity implements OnMapInteractionL
 	}
 
 	private void openMissionFile() {
-		OpenMissionDialog missionDialog = new OpenMissionDialog() {				
+		OpenFileDialog missionDialog = new OpenMissionDialog(drone) {
 			@Override
-			public void waypointFileLoaded(boolean isFileOpen) {
-				if(isFileOpen){
-					planningMapFragment.zoomToExtents(drone.getAllCoordinates());
-				}
-				update();
+			public void waypointFileLoaded() {
+				planningMapFragment.zoomToExtents(drone.getAllCoordinates());
+				update();				
 			}
 		};
-		missionDialog.OpenWaypointDialog(drone, this);
+		missionDialog.openDialog(this);
 	}
 
 	public void openPolygonGenerateDialog() {

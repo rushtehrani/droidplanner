@@ -1,9 +1,4 @@
-package com.droidplanner;
-
-import com.droidplanner.DroidPlannerApp.ConnectionStateListner;
-import com.droidplanner.MAVLink.Drone;
-import com.droidplanner.dialogs.AltitudeDialog;
-import com.droidplanner.dialogs.AltitudeDialog.OnAltitudeChangedListner;
+package com.droidplanner.activitys;
 
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
@@ -15,6 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
+
+import com.droidplanner.DroidPlannerApp;
+import com.droidplanner.DroidPlannerApp.ConnectionStateListner;
+import com.droidplanner.R;
+import com.droidplanner.MAVLink.Drone;
+import com.droidplanner.dialogs.AltitudeDialog;
+import com.droidplanner.dialogs.AltitudeDialog.OnAltitudeChangedListner;
 
 public abstract class SuperActivity extends Activity implements
 		OnNavigationListener, ConnectionStateListner, OnAltitudeChangedListner {
@@ -59,10 +61,10 @@ public abstract class SuperActivity extends Activity implements
 		}
 		Intent navigationIntent;
 		switch (itemPosition) {
-		default:
 		case 0: // Planning
 			navigationIntent = new Intent(this, PlanningActivity.class);
 			break;
+		default:
 		case 1: // Flight Data
 			navigationIntent = new Intent(this, FlightDataActivity.class);
 			navigationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -70,12 +72,15 @@ public abstract class SuperActivity extends Activity implements
 		case 2: // RC
 			navigationIntent = new Intent(this, RCActivity.class);
 			break;
-		case 3: // GCP
-			navigationIntent = new Intent(this, GCPActivity.class);
+		case 3: // Parameters
+			navigationIntent = new Intent(this, ParametersActivity.class);
 			break;
-		case 4: // Terminal
-			navigationIntent = new Intent(this, TerminalActivity.class);
-			break;			
+		case 4: // Camera
+			navigationIntent = new Intent(this, CameraActivity.class);
+			break;
+		case 5: // GCP
+			navigationIntent = new Intent(this, GCPActivity.class);
+			break;		
 		}
 		startActivity(navigationIntent);
 		return false;
@@ -92,7 +97,13 @@ public abstract class SuperActivity extends Activity implements
 				return true;
 			case R.id.menu_load_from_apm:
 				app.waypointMananger.getWaypoints();
-				return true;					
+				return true;	
+			case R.id.menu_default_alt:
+				changeDefaultAlt();
+				return true;
+			case R.id.menu_preflight_calibration:
+				app.calibrationSetup.startCalibration(this);
+				return true;
 			default:
 				return super.onMenuItemSelected(featureId, item);
 		}

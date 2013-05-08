@@ -1,4 +1,4 @@
-package com.droidplanner;
+package com.droidplanner.activitys;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.droidplanner.R;
 import com.droidplanner.helpers.RcOutput;
 import com.droidplanner.widgets.joystick.DualJoystickView;
 import com.droidplanner.widgets.joystick.JoystickMovedListener;
@@ -42,6 +43,7 @@ public class RCActivity extends SuperActivity implements
 		DualJoystickView joystick = (DualJoystickView)findViewById(R.id.joystickView);
         
         joystick.setOnJostickMovedListener(lJoystick, rJoystick);
+        joystick.setLeftAutoReturnToCenter(false, true);
 
 		bTogleRC = (Button) findViewById(R.id.bTogleRC);
 		bTogleRC.setOnClickListener(this);
@@ -49,9 +51,7 @@ public class RCActivity extends SuperActivity implements
 		SensorManager mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		Sensor mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		mSensorManager.registerListener((SensorEventListener) this, mSensor,SensorManager.SENSOR_DELAY_NORMAL);
-		Log.d("SENSOR", "Listner");
-		
-		rcOutput = new RcOutput(app.MAVClient,this);
+		Log.d("SENSOR", "Listner");		rcOutput = new RcOutput(app.MAVClient,this);
 	}
 	
 
@@ -79,6 +79,8 @@ public class RCActivity extends SuperActivity implements
 		if (v == bTogleRC) {
 			if (rcOutput.isRcOverrided()) {
 				rcOutput.disableRcOverride();
+				lJoystick.OnMoved(0f, 0f);
+				rJoystick.OnMoved(0f, 0f);
 				bTogleRC.setText(R.string.enable_rc_control);
 			} else {
 				rcOutput.enableRcOverride();

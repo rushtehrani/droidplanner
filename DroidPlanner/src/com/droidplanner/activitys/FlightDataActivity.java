@@ -1,4 +1,4 @@
-package com.droidplanner;
+package com.droidplanner.activitys;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +11,7 @@ import com.MAVLink.Messages.ApmModes;
 import com.MAVLink.Messages.ardupilotmega.msg_mission_item;
 import com.MAVLink.Messages.ardupilotmega.msg_set_mode;
 import com.droidplanner.DroidPlannerApp.OnWaypointReceivedListner;
+import com.droidplanner.R;
 import com.droidplanner.MAVLink.Drone.DroneTypeListner;
 import com.droidplanner.fragments.FlightMapFragment;
 import com.droidplanner.fragments.FlightMapFragment.OnFlighDataListener;
@@ -72,6 +73,8 @@ public class FlightDataActivity extends SuperActivity implements OnFlighDataList
 		case R.id.menu_zoom:
 			flightMapFragment.zoomToLastKnowPosition();
 			return true;	
+		case R.id.menu_follow_me:
+			app.followMe.toogleFollowMeState();
 		default:
 			return super.onMenuItemSelected(featureId, item);
 		}

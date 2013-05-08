@@ -1,4 +1,4 @@
-package com.droidplanner.helpers;
+package com.droidplanner.gcp;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,14 +14,16 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.util.Xml;
 
-import com.droidplanner.waypoints.gcp;
+import com.droidplanner.dialogs.OpenFileDialog.FileReader;
+import com.droidplanner.helpers.file.DirectoryPath;
+import com.droidplanner.helpers.file.FileList;
 
 /**
  * Class to parse a Kml file, based on the code from
  * http://developer.android.com/training/basics/network-ops/xml.html
  * 
  */
-public class KmlParser {
+public class KmlParser implements FileReader {
 	private final String ns = null;
 
 	public List<gcp> gcpList;
@@ -196,5 +198,20 @@ public class KmlParser {
 				break;
 			}
 		}
+	}
+
+	@Override
+	public String getPath() {
+		return DirectoryPath.getGCPPath();
+	}
+
+	@Override
+	public String[] getFileList() {
+		return FileList.getKMZFileList();
+	}
+
+	@Override
+	public boolean openFile(String itemList) {
+		return openGCPFile(itemList);
 	}
 }

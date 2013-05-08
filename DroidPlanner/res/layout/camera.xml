@@ -14,12 +14,6 @@
         android:text="@string/this_is_very_experimental_please_be_careful"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/bTogleRC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/enable_rc_control" />
-
             <com.droidplanner.widgets.joystick.DualJoystickView
                 android:id="@+id/joystickView"
                 android:layout_width="match_parent"

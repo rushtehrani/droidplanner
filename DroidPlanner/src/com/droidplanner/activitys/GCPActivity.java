@@ -1,4 +1,4 @@
-package com.droidplanner;
+package com.droidplanner.activitys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.droidplanner.R;
+import com.droidplanner.dialogs.OpenFileDialog;
 import com.droidplanner.dialogs.OpenGcpFileDialog;
 import com.droidplanner.fragments.GcpMapFragment;
 import com.droidplanner.fragments.GcpMapFragment.OnGcpClickListner;
-import com.droidplanner.helpers.KmlParser;
-import com.droidplanner.waypoints.gcp;
+import com.droidplanner.gcp.KmlParser;
+import com.droidplanner.gcp.gcp;
 import com.google.android.gms.maps.model.LatLng;
 
 public class GCPActivity extends SuperActivity implements OnGcpClickListner {
@@ -24,7 +25,7 @@ public class GCPActivity extends SuperActivity implements OnGcpClickListner {
 
 	@Override
 	int getNavigationItem() {
-		return 3;
+		return 5;
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class GCPActivity extends SuperActivity implements OnGcpClickListner {
 	}
 
 	public void openGcpFile() {
-		OpenGcpFileDialog dialog = new OpenGcpFileDialog() {			
+		OpenFileDialog dialog = new OpenGcpFileDialog() {			
 			@Override
 			public void onGcpFileLoaded(List<gcp> list) {
 				if(list!=null){
@@ -81,7 +82,7 @@ public class GCPActivity extends SuperActivity implements OnGcpClickListner {
 				}
 			}
 		};		
-		dialog.openGCPDialog(this);
+		dialog.openDialog(this);
 	}
 
 	private void putListToGcp(List<gcp> list) {

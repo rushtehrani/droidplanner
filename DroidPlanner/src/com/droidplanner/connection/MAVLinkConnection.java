@@ -1,4 +1,4 @@
-package com.droidplanner.service;
+package com.droidplanner.connection;
 
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import android.preference.PreferenceManager;
 import com.MAVLink.Parser;
 import com.MAVLink.Messages.MAVLinkMessage;
 import com.MAVLink.Messages.MAVLinkPacket;
-import com.droidplanner.helpers.FileManager;
+import com.droidplanner.helpers.file.FileStream;
 
 public abstract class MAVLinkConnection extends Thread {
 
@@ -59,7 +59,7 @@ public abstract class MAVLinkConnection extends Thread {
 		try {
 			openConnection();
 			if (logEnabled) {
-				logWriter = FileManager.getTLogFileStream();
+				logWriter = FileStream.getTLogFileStream();
 				logBuffer = ByteBuffer.allocate(Long.SIZE/Byte.SIZE);
 				logBuffer.order(ByteOrder.BIG_ENDIAN);
 			}
@@ -96,11 +96,15 @@ public abstract class MAVLinkConnection extends Thread {
 	
 	private void saveToLog(MAVLinkPacket receivedPacket) throws IOException {
 		if (logEnabled) {
-			logBuffer.clear();
-			long time = System.currentTimeMillis() * 1000;
-			logBuffer.putLong(time);
-			logWriter.write(logBuffer.array());
-			logWriter.write(receivedPacket.encodePacket());
+			try {
+				logBuffer.clear();
+				long time = System.currentTimeMillis() * 1000;
+				logBuffer.putLong(time);
+				logWriter.write(logBuffer.array());
+				logWriter.write(receivedPacket.encodePacket());
+			} catch (Exception e) {
+				// There was a null pointer error for some users on logBuffer.clear(); 
+			}
 		}
 	}
 
