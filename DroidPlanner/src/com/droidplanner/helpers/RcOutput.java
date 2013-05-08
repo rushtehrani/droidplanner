@@ -26,6 +26,11 @@ public class RcOutput {
 	public static final int	TROTTLE = 2;
 	public static final int	RUDDER  = 3;
 
+	public static final int	RC5  = 4;
+	public static final int	RC6  = 5;
+	public static final int	RC7  = 6;
+	public static final int	RC8  = 7;
+
 	public RcOutput(MAVLinkClient MAV, Context context) {
 		this.MAV = MAV;
 		parrentContext = context;
@@ -44,7 +49,7 @@ public class RcOutput {
 
 	public void enableRcOverride() {
 		if (!isRcOverrided()) {
-			Arrays.fill(rcOutputs, RC_TRIM);
+			Arrays.fill(rcOutputs, DISABLE_OVERRIDE);
 			scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
 			scheduleTaskExecutor.scheduleWithFixedDelay(new Runnable() {
 				@Override

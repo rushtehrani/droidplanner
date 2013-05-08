@@ -122,6 +122,14 @@ public class DualJoystickView extends LinearLayout {
 		stickR.setUserCoordinateSystem(rightCoordinateSystem);
 	}
 	
+	public void setLeftAutoReturnToCenter(boolean yAxisAutoReturnToCenter,boolean xAxisAutoReturnToCenter){
+		stickL.setAxisAutoReturnToCenter(yAxisAutoReturnToCenter, xAxisAutoReturnToCenter);
+	}
+	
+	public void setRightAutoReturnToCenter(boolean yAxisAutoReturnToCenter,boolean xAxisAutoReturnToCenter){
+		stickR.setAxisAutoReturnToCenter(yAxisAutoReturnToCenter, xAxisAutoReturnToCenter);
+	}
+	
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
 		super.dispatchDraw(canvas);
