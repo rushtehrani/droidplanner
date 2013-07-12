@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <com.droidplanner.widgets.FPV.MjpegView
-        android:id="@+id/mjpegView1"
+    <fragment
+        android:id="@+id/hud_fragment2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        class="com.droidplanner.fragments.FpvHudFragment" />
 
 </RelativeLayout>

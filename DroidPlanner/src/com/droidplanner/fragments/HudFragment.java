@@ -18,10 +18,15 @@ public class HudFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.hud_fragment, container, false);
+		View view = inflateView(inflater, container);
 		hudWidget = (HUDwidget) view.findViewById(R.id.hudWidget);
 		hudWidget.setDrone(((SuperActivity)getActivity()).app.drone);
 		hudWidget.onDroneUpdate();
+		return view;
+	}
+
+	protected View inflateView(LayoutInflater inflater, ViewGroup container) {
+		View view = inflater.inflate(R.layout.hud_fragment, container, false);
 		return view;
 	}
 	
