@@ -29,114 +29,114 @@ import com.droidplanner.MAVLink.Drone.HudUpdatedListner;
  */
 
 public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, HudUpdatedListner {
-	private static final float 	SCROLLER_WIDTH_FACTOR = .15f;			//in relation to width (total HUD widget width)
-	private static final float  SCROLLER_MAX_HEIGHT_FACTOR = .66f;		//in relation to attHeightPx
-	private static final float		SCROLLER_FACTOR_TEXT = .048f;		//in relation to attHeightPx
-	private static final float		SCROLLER_FACTOR_TEXT_Y_OFFSET = -.16f;//in relation to scrollerSizePxText
-	private static final float		SCROLLER_FACTOR_ACTUAL_TEXT_MAGNIFICATION = 1.2f;//in relation to the resulting size of SCROLLER_FACTOR_TEXT
-	private static final float		SCROLLER_FACTOR_TEXT_X_OFFSET = .037f;//in relation to width
-	private static final float		SCROLLER_FACTOR_TIC_LENGTH = .025f;	//in relation to width
-	private static final float 		SCROLLER_FACTOR_ARROW_HEIGTH = 1.4f; //in relation to scrollerSizePxText
-	private static final float 		SCROLLER_FACTOR_TARGET_BAR_WIDTH = .015f;//in relation to attHeightPx
-	private static final int 	SCROLLER_VSI_RANGE = 12;
-	private static final int 	SCROLLER_ALT_RANGE = 26;
-	private static final int 	SCROLLER_SPEED_RANGE = 26;
-	private static final float  ROLL_FACTOR_TEXT = .038f;				//in relation to attHeightPx
-	private static final float  ROLL_FACTOR_TIC_LENGTH = .25f;			//in relation to rollTopOffsetPx
-	private static final float  ROLL_FACTOR_TEXT_Y_OFFSET = .8f;		//in relation to rollSizePxTics
-	private static final float	PITCH_FACTOR_TEXT = .038f;				//in relation to attHeightPx
-	private static final float	PITCH_FACTOR_TEXT_Y_OFFSET = -.16f;		//in relation to the resulting size of PITCH_FACTOR_TEXT
-	private static final float 		PITCH_FACTOR_SCALE_Y_SPACE = 0.02f;	//in relation to attHeightPx
-	private static final float 		PITCH_FACTOR_SCALE_WIDHT_WIDE = 0.25f;	//in relation to width
-	private static final float 		PITCH_FACTOR_SCALE_WIDHT_NARROW = 0.1f;	//in relation to width
-	private static final float 		PITCH_FACTOR_SCALE_TEXT_X_OFFSET = 0.025f;	//in relation to width
+	protected static final float 	SCROLLER_WIDTH_FACTOR = .15f;			//in relation to width (total HUD widget width)
+	protected static final float  SCROLLER_MAX_HEIGHT_FACTOR = .66f;		//in relation to attHeightPx
+	protected static final float		SCROLLER_FACTOR_TEXT = .048f;		//in relation to attHeightPx
+	protected static final float		SCROLLER_FACTOR_TEXT_Y_OFFSET = -.16f;//in relation to scrollerSizePxText
+	protected static final float		SCROLLER_FACTOR_ACTUAL_TEXT_MAGNIFICATION = 1.2f;//in relation to the resulting size of SCROLLER_FACTOR_TEXT
+	protected static final float		SCROLLER_FACTOR_TEXT_X_OFFSET = .037f;//in relation to width
+	protected static final float		SCROLLER_FACTOR_TIC_LENGTH = .025f;	//in relation to width
+	protected static final float 		SCROLLER_FACTOR_ARROW_HEIGTH = 1.4f; //in relation to scrollerSizePxText
+	protected static final float 		SCROLLER_FACTOR_TARGET_BAR_WIDTH = .015f;//in relation to attHeightPx
+	protected static final int 	SCROLLER_VSI_RANGE = 12;
+	protected static final int 	SCROLLER_ALT_RANGE = 26;
+	protected static final int 	SCROLLER_SPEED_RANGE = 26;
+	protected static final float  ROLL_FACTOR_TEXT = .038f;				//in relation to attHeightPx
+	protected static final float  ROLL_FACTOR_TIC_LENGTH = .25f;			//in relation to rollTopOffsetPx
+	protected static final float  ROLL_FACTOR_TEXT_Y_OFFSET = .8f;		//in relation to rollSizePxTics
+	protected static final float	PITCH_FACTOR_TEXT = .038f;				//in relation to attHeightPx
+	protected static final float	PITCH_FACTOR_TEXT_Y_OFFSET = -.16f;		//in relation to the resulting size of PITCH_FACTOR_TEXT
+	protected static final float 		PITCH_FACTOR_SCALE_Y_SPACE = 0.02f;	//in relation to attHeightPx
+	protected static final float 		PITCH_FACTOR_SCALE_WIDHT_WIDE = 0.25f;	//in relation to width
+	protected static final float 		PITCH_FACTOR_SCALE_WIDHT_NARROW = 0.1f;	//in relation to width
+	protected static final float 		PITCH_FACTOR_SCALE_TEXT_X_OFFSET = 0.025f;	//in relation to width
 	
-	private static final float	YAW_HEIGHT_FACTOR = .075f;				//in relation to height (total HUD widget height)
-	private static final float		YAW_FACTOR_TEXT = .75f;				//in relation to yawHeightPx
-	private static final float		YAW_FACTOR_TEXT_NUMBERS = .50f;		//in relation to yawHeightPx
-	private static final float		YAW_FACTOR_TEXT_Y_OFFSET = -.16f;	//in relation to yawSizePxText	
-	private static final float		YAW_FACTOR_TICS_SMALL = .20f;		//in relation to yawHeightPx
-	private static final float		YAW_FACTOR_TICS_TALL = .35f;		//in relation to yawHeightPx
-	private static final float		YAW_FACTOR_CENTERLINE_OVERRUN = .2f;//in relation to yawHeightPx
-	private static final int 	YAW_DEGREES_TO_SHOW = 90;
-	private static final float	ATT_FACTOR_INFOTEXT = .048f;			//in relation to attHeightPx
-	private static final float		ATT_FACTOR_INFOTEXT_Y_OFFSET = -.1f;	//in relation to the resulting size of ATT_FACTOR_INFOTEXT
-	private static final float		ATT_FACTOR_INFOTEXT_X_OFFSET = .013f;	//in relation to width
-	private static final float		ATT_FACTOR_INFOTEXT_CLEARANCE = .1f; 	//in relation to attSizePxInfoText//.3f
+	protected static final float	YAW_HEIGHT_FACTOR = .075f;				//in relation to height (total HUD widget height)
+	protected static final float		YAW_FACTOR_TEXT = .75f;				//in relation to yawHeightPx
+	protected static final float		YAW_FACTOR_TEXT_NUMBERS = .50f;		//in relation to yawHeightPx
+	protected static final float		YAW_FACTOR_TEXT_Y_OFFSET = -.16f;	//in relation to yawSizePxText	
+	protected static final float		YAW_FACTOR_TICS_SMALL = .20f;		//in relation to yawHeightPx
+	protected static final float		YAW_FACTOR_TICS_TALL = .35f;		//in relation to yawHeightPx
+	protected static final float		YAW_FACTOR_CENTERLINE_OVERRUN = .2f;//in relation to yawHeightPx
+	protected static final int 	YAW_DEGREES_TO_SHOW = 90;
+	protected static final float	ATT_FACTOR_INFOTEXT = .048f;			//in relation to attHeightPx
+	protected static final float		ATT_FACTOR_INFOTEXT_Y_OFFSET = -.1f;	//in relation to the resulting size of ATT_FACTOR_INFOTEXT
+	protected static final float		ATT_FACTOR_INFOTEXT_X_OFFSET = .013f;	//in relation to width
+	protected static final float		ATT_FACTOR_INFOTEXT_CLEARANCE = .1f; 	//in relation to attSizePxInfoText//.3f
 	
-	private static final float 	HUD_FACTOR_BORDER_WIDTH = .0075f;		//in relation to averaged of width and height
-	private static final float 	HUD_FACTOR_RED_INDICATOR_WIDTH = .0075f;	//in relation to averaged of width and height
-	private static final float  HUD_FACTOR_SCALE_THICK_TIC_STROKEWIDTH = .005f; //in relation to averaged of width and height
-	private static final float  HUD_FACTOR_SCALE_THIN_TIC_STROKEWIDTH = .0025f; //in relation to averaged of width and height
-	private static final float  HUD_FACTOR_CENTER_INDICATOR_SIZE = .0375f; //in relation to averaged of width and height
+	protected static final float 	HUD_FACTOR_BORDER_WIDTH = .0075f;		//in relation to averaged of width and height
+	protected static final float 	HUD_FACTOR_RED_INDICATOR_WIDTH = .0075f;	//in relation to averaged of width and height
+	protected static final float  HUD_FACTOR_SCALE_THICK_TIC_STROKEWIDTH = .005f; //in relation to averaged of width and height
+	protected static final float  HUD_FACTOR_SCALE_THIN_TIC_STROKEWIDTH = .0025f; //in relation to averaged of width and height
+	protected static final float  HUD_FACTOR_CENTER_INDICATOR_SIZE = .0375f; //in relation to averaged of width and height
 	
-	private static final float 	FAILSAFE_FACTOR_TEXT = .093f;			//in relation to width
-	private static final float 	FAILSAFE_FACTOR_BOX_PADDING = .27f;		//in relation to the resulting size of FAILSAFE_FACTOR_TEXT
+	protected static final float 	FAILSAFE_FACTOR_TEXT = .093f;			//in relation to width
+	protected static final float 	FAILSAFE_FACTOR_BOX_PADDING = .27f;		//in relation to the resulting size of FAILSAFE_FACTOR_TEXT
 	
-	
-
-	private ScopeThread renderer;
-	private int width;
-	private int height;
-	private int attHeightPx;
-	private int 	attPosPxInfoTextUpperTop;
-	private int 	attPosPxInfoTextUpperBottom;
-	private int 	attPosPxInfoTextLowerTop;
-	private int 	attPosPxInfoTextLowerBottom;
-	private int 	attPosPxInfoTextXOffset;
-	private int scrollerHeightPx;
-	private int scrollerWidthPx;
-	private int 	scrollerSizePxTextYOffset;
-	private int 	scrollerSizePxActualTextYOffset;
-	private int 	scrollerSizePxTextXOffset;
-	private int 	scrollerSizePxArrowHeight;
-	private int 	scrollerSizePxTicLength;
-	private int yawHeightPx;
-	private int		yawYPosPxText;
-	private int		yawYPosPxTextNumbers;
-	private double	yawDegreesPerPixel;
-	private int		yawSizePxTicsSmall;
-	private int		yawSizePxTicsTall;
-	private int 	yawSizePxCenterLineOverRun;
-	private int rollTopOffsetPx;
-	private int 	rollSizePxTics;
-	private int 	rollPosPxTextYOffset;
-	private int pitchTextCenterOffsetPx;
-	private int		pitchPixPerDegree;
-	private int 	pitchScaleWideHalfWidth;
-	private int 	pitchScaleNarrowHalfWidth;
-	private int 	pitchScaleTextXOffset;
-	private int hudCenterIndicatorRadius;
-	private int failsafeSizePxBoxPadding;
 	
 
-	private int armedCounter = 0;
-	//private DisplayMetrics hudMetrics;
+	protected ScopeThread renderer;
+	protected int width;
+	protected int height;
+	protected int attHeightPx;
+	protected int 	attPosPxInfoTextUpperTop;
+	protected int 	attPosPxInfoTextUpperBottom;
+	protected int 	attPosPxInfoTextLowerTop;
+	protected int 	attPosPxInfoTextLowerBottom;
+	protected int 	attPosPxInfoTextXOffset;
+	protected int scrollerHeightPx;
+	protected int scrollerWidthPx;
+	protected int 	scrollerSizePxTextYOffset;
+	protected int 	scrollerSizePxActualTextYOffset;
+	protected int 	scrollerSizePxTextXOffset;
+	protected int 	scrollerSizePxArrowHeight;
+	protected int 	scrollerSizePxTicLength;
+	protected int yawHeightPx;
+	protected int		yawYPosPxText;
+	protected int		yawYPosPxTextNumbers;
+	protected double	yawDegreesPerPixel;
+	protected int		yawSizePxTicsSmall;
+	protected int		yawSizePxTicsTall;
+	protected int 	yawSizePxCenterLineOverRun;
+	protected int rollTopOffsetPx;
+	protected int 	rollSizePxTics;
+	protected int 	rollPosPxTextYOffset;
+	protected int pitchTextCenterOffsetPx;
+	protected int		pitchPixPerDegree;
+	protected int 	pitchScaleWideHalfWidth;
+	protected int 	pitchScaleNarrowHalfWidth;
+	protected int 	pitchScaleTextXOffset;
+	protected int hudCenterIndicatorRadius;
+	protected int failsafeSizePxBoxPadding;
 	
-	private static final boolean hudDebug = false;
+
+	protected int armedCounter = 0;
+	//protected DisplayMetrics hudMetrics;
+	
+	protected static final boolean hudDebug = false;
 	//hudDebug is the main switch for HUD debugging
 	// |->false: Normal HUD operation.
 	// '->true:  HUD shows only the following dummy data! NO NORMAL OPERATION
-	private static final double hudDebugYaw = 42;
-	private static final double hudDebugRoll = 45;
-	private static final double hudDebugPitch = 11;
-	private static final double hudDebugGroundSpeed = 4.3;
-	private static final double hudDebugAirSpeed = 3.2;
-	private static final double hudDebugTargetSpeed = 3;
-	private static final double hudDebugAltitude = 8;
-	private static final double hudDebugTargetAltitude = 20;
-	private static final double hudDebugVerticalSpeed = 2.5;
-	private static final double hudDebugBattRemain = 51;
-	private static final double hudDebugBattCurrent = 40.5;
-	private static final double hudDebugBattVolt = 12.32;
-	private static final int  	hudDebugSatCount = 8;
-	private static final int 	hudDebugFixType = 3;
-	private static final double hudDebugGpsEPH = 2.4;
-	private static final String hudDebugModeName = "Loiter";
-	private static final int 	hudDebugWpNumber = 4;
-	private static final double hudDebugDistToWp = 30.45;
-	private static final int	hudDebugDroneType = 2;
-	private static final boolean hudDebugDroneArmed = false;
+	protected static final double hudDebugYaw = 42;
+	protected static final double hudDebugRoll = 45;
+	protected static final double hudDebugPitch = 11;
+	protected static final double hudDebugGroundSpeed = 4.3;
+	protected static final double hudDebugAirSpeed = 3.2;
+	protected static final double hudDebugTargetSpeed = 3;
+	protected static final double hudDebugAltitude = 8;
+	protected static final double hudDebugTargetAltitude = 20;
+	protected static final double hudDebugVerticalSpeed = 2.5;
+	protected static final double hudDebugBattRemain = 51;
+	protected static final double hudDebugBattCurrent = 40.5;
+	protected static final double hudDebugBattVolt = 12.32;
+	protected static final int  	hudDebugSatCount = 8;
+	protected static final int 	hudDebugFixType = 3;
+	protected static final double hudDebugGpsEPH = 2.4;
+	protected static final String hudDebugModeName = "Loiter";
+	protected static final int 	hudDebugWpNumber = 4;
+	protected static final double hudDebugDistToWp = 30.45;
+	protected static final int	hudDebugDroneType = 2;
+	protected static final boolean hudDebugDroneArmed = false;
 	
 	
 	// Paints
@@ -161,7 +161,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 	Paint blueVSI = new Paint();
 	Paint greenPen = new Paint();
 	
-	private Drone drone;
+	protected Drone drone;
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -260,14 +260,14 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		blueVSI.setAntiAlias(true);
 	}
 
-	private void drawPlane(Canvas canvas) {
+	protected void drawPlane(Canvas canvas) {
 		canvas.drawCircle(0, 0, hudCenterIndicatorRadius, plane);
 		canvas.drawLine(-hudCenterIndicatorRadius, 0, -hudCenterIndicatorRadius * 2, 0, plane);
 		canvas.drawLine(hudCenterIndicatorRadius, 0, hudCenterIndicatorRadius * 2, 0, plane);
 		canvas.drawLine(0, -hudCenterIndicatorRadius, 0, -hudCenterIndicatorRadius * 2, plane);
 	}
 
-	private void drawYaw(Canvas canvas) {
+	protected void drawYaw(Canvas canvas) {
 		int yawBottom = -attHeightPx / 2;
 		canvas.drawRect(-width / 2, yawBottom - yawHeightPx, width / 2, yawBottom, yawBg);
 		canvas.drawLine(-width / 2, yawBottom, width / 2, yawBottom, whiteBorder);
@@ -309,7 +309,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		canvas.drawLine(0, yawBottom - yawHeightPx, 0, yawBottom + yawSizePxCenterLineOverRun, plane);
 	}
 
-	private void drawRoll(Canvas canvas) {
+	protected void drawRoll(Canvas canvas) {
 		int r = Math.round(attHeightPx / 2 - rollTopOffsetPx);
 		RectF rec = new RectF(-r, -r, r, r);
 		
@@ -345,7 +345,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		//current roll angle will be drawn by drawPitch()
 	}
 
-	private void drawPitch(Canvas canvas) {
+	protected void drawPitch(Canvas canvas) {
 		double pitch = drone.getPitch();
 		double roll = drone.getRoll();
 		
@@ -390,7 +390,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		canvas.rotate((int) roll);
 	}
 
-	private void drawRightScroller(Canvas canvas) {
+	protected void drawRightScroller(Canvas canvas) {
 		final float textHalfSize = scrollerText.getTextSize() / 2;
 		scrollerText.setTextAlign(Paint.Align.LEFT);
 		scrollerActualText.setTextAlign(Paint.Align.LEFT);
@@ -496,7 +496,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		canvas.drawLine(scroller.left + borderWidth, 0, scroller.left - vsi_width - borderWidth, 0, plane);
 	}
 
-	private void drawLeftScroller(Canvas canvas) {
+	protected void drawLeftScroller(Canvas canvas) {
 		final float textHalfSize = scrollerText.getTextSize() / 2;
 		scrollerText.setTextAlign(Paint.Align.RIGHT);
 		scrollerActualText.setTextAlign(Paint.Align.RIGHT);
@@ -572,7 +572,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		canvas.clipRect(-width / 2, -height / 2, width / 2, height / 2,Region.Op.REPLACE);
 	}
 	
-	private void drawAttitudeInfoText(Canvas canvas) {
+	protected void drawAttitudeInfoText(Canvas canvas) {
 		double battVolt = drone.getBattVolt();
 		double battCurrent = drone.getBattCurrent();
 		double battRemain = drone.getBattRemain();
@@ -638,7 +638,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 			canvas.drawText(String.format("%.0fm>WP#%d", distToWp, wpNumber), width / 2 -attPosPxInfoTextXOffset, attPosPxInfoTextLowerBottom, attInfoText);	
 	}
 	
-	private void drawFailsafe(Canvas canvas) {
+	protected void drawFailsafe(Canvas canvas) {
 		int droneType = drone.getType();
 		boolean isArmed = drone.isArmed();
 			
@@ -796,11 +796,11 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		}
 	}
 
-	private class ScopeThread extends Thread {
-		private SurfaceHolder _surfaceHolder;
-		private HUDwidget scope;
-		private volatile boolean running = false;
-		private Object dirty = new Object();
+	protected class ScopeThread extends Thread {
+		protected SurfaceHolder _surfaceHolder;
+		protected HUDwidget scope;
+		protected volatile boolean running = false;
+		protected Object dirty = new Object();
 
 		public ScopeThread(SurfaceHolder surfaceHolder, HUDwidget panel) {
 			_surfaceHolder = surfaceHolder;
