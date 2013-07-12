@@ -3,6 +3,8 @@ package com.droidplanner.activitys;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.droidplanner.R;
 
@@ -16,7 +18,12 @@ public class FPVActivity extends SuperActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fpv);
+		
+		VideoView vv = new VideoView(this);
+        setContentView(vv);        
+        vv.setVideoPath("http://192.168.40.125:8080/");
+        vv.setMediaController(new MediaController(this));        
+
 	}
 
 	@Override
