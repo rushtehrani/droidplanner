@@ -103,6 +103,10 @@
                 <data android:mimeType="application/vnd.google-earth.kmz" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activitys.FPVActivity"
+            android:screenOrientation="landscape" >
+        </activity>
         <activity android:name=".activitys.ParametersActivity" >
         </activity>
         <activity android:name=".activitys.SettingsActivity" >

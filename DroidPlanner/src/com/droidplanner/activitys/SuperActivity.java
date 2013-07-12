@@ -83,7 +83,10 @@ public abstract class SuperActivity extends Activity implements
 			break;
 		case 5: // GCP
 			navigationIntent = new Intent(this, GCPActivity.class);
-			break;		
+			break;	
+		case 6: // FPV
+			navigationIntent = new Intent(this, FPVActivity.class);
+			break;	
 		}
 		startActivity(navigationIntent);
 		return false;

@@ -50,7 +50,8 @@
         <item>RC</item>
         <item>Parameters</item>
         <item>Camera</item>
-        <item>GCP</item>     
+        <item>GCP</item>
+        <item>FPV</item>     
     </string-array>    
     
     <!--Do not change the names in the array bellow-->
