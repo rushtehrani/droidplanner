@@ -28,19 +28,16 @@ public class FpvHudFragment extends Fragment {
 	// "http://trackfield.webcam.oregonstate.edu/axis-cgi/mjpg/video.cgi?resolution=800x600&amp%3bdummy=1333689998337";
 	String URL = "http://192.168.40.143:81/videostream.cgi?user=admin&pwd=&resolution=32&rate=10";
 	
-	private FpvHudWidget hudWidget;
+	private FpvHudWidget fpvHudWidget;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fpv_hud_fragment, container,false);
-		hudWidget = (FpvHudWidget) view.findViewById(R.id.fpvHudWidget);
-		hudWidget.setDrone(((SuperActivity)getActivity()).app.drone);
-		hudWidget.onDroneUpdate();
-		
-		//vv = (MjpegView) view.findViewById(R.id.mjpegView1);
-		//vv.setBackgroundColor(Color.argb(0, 0, 0, 0));
-		//new DoRead().execute(URL);
+		fpvHudWidget = (FpvHudWidget) view.findViewById(R.id.fpvHudWidget);
+		fpvHudWidget.setDrone(((SuperActivity)getActivity()).app.drone);
+		fpvHudWidget.onDroneUpdate();
+		new DoRead().execute(URL);
 
 		return view;
 	}
@@ -80,9 +77,7 @@ public class FpvHudFragment extends Fragment {
 		}
 
 		protected void onPostExecute(MjpegInputStream result) {
-			//vv.setSource(result);
-			//vv.setDisplayMode(MjpegView.SIZE_BEST_FIT);
-			//vv.showFps(true);
+			fpvHudWidget.setSource(result);
 		}
 	}
 }

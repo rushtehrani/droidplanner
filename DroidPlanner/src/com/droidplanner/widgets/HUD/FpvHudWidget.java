@@ -1,12 +1,25 @@
 package com.droidplanner.widgets.HUD;
 
+import java.io.IOException;
+
+
+import com.droidplanner.widgets.FPV.MjpegInputStream;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class FpvHudWidget extends HUDwidget {
+
+    private MjpegInputStream mIn = null; 
+    private Bitmap bm;
+    private Paint p = new Paint();
 
 	public FpvHudWidget(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
@@ -51,8 +64,19 @@ public class FpvHudWidget extends HUDwidget {
 		canvas.rotate(-(int) roll);
 
 		// Draw the background
-		canvas.drawRect(-width, pitchOffsetPx, width, 2 * height /* Go plenty low */, ground);
-		canvas.drawRect(-width, -2 * height /* Go plenty high */, width, pitchOffsetPx, sky);
+		try {
+			if (mIn != null) {
+				Log.d("FPV", "mIn not null");
+				bm = mIn.readMjpegFrame();
+				canvas.drawBitmap(bm, null, new Rect(-width, -height, width, height), p);				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		//canvas.drawRect(-width, pitchOffsetPx, width, 2 * height /* Go plenty low */, ground);
+		//canvas.drawRect(-width, -2 * height /* Go plenty high */, width, pitchOffsetPx, sky);
 		canvas.drawLine(-width, pitchOffsetPx, width, pitchOffsetPx, whiteThinTics);
 		
 		// Draw roll triangle
@@ -79,6 +103,11 @@ public class FpvHudWidget extends HUDwidget {
 		}
 
 		canvas.rotate((int) roll);
+	}
+
+	public void setSource(MjpegInputStream source) {
+		Log.d("FPV", "setSource");
+		mIn = source;		
 	}
 
 }

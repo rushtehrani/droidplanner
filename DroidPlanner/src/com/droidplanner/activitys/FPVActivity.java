@@ -29,7 +29,6 @@ public class FPVActivity extends SuperActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.fpv);
 	}	
 }
