@@ -61,7 +61,6 @@ public class FpvHudWidget extends HUDwidget {
 		int pitchOffsetPx = (int) (pitch * pitchPixPerDegree);
 		int rollTriangleBottom = -attHeightPx / 2 + rollTopOffsetPx / 2 + rollTopOffsetPx;
 		
-		canvas.rotate(-(int) roll);
 
 		// Draw the background
 		try {
@@ -75,6 +74,8 @@ public class FpvHudWidget extends HUDwidget {
 			e.printStackTrace();
 		}
         
+		canvas.rotate(-(int) roll);
+		
 		//canvas.drawRect(-width, pitchOffsetPx, width, 2 * height /* Go plenty low */, ground);
 		//canvas.drawRect(-width, -2 * height /* Go plenty high */, width, pitchOffsetPx, sky);
 		canvas.drawLine(-width, pitchOffsetPx, width, pitchOffsetPx, whiteThinTics);
