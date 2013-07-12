@@ -1,17 +1,12 @@
 package com.droidplanner.activitys;
 
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.droidplanner.R;
-import com.droidplanner.widgets.FPV.MjpegView;
 
 public class FPVActivity extends SuperActivity {
-
-	private MjpegView vv;
-
 
 	@Override
 	int getNavigationItem() {
@@ -36,14 +31,5 @@ public class FPVActivity extends SuperActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.fpv);
-		
-		vv = (MjpegView) findViewById(R.id.mjpegView1);
-	}
-
-	public void onPause() {
-		super.onPause();
-		vv.stopPlayback();
-	}
-
-	
+	}	
 }

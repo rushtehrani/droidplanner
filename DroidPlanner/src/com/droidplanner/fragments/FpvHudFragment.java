@@ -8,7 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.graphics.Color;
+import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,37 +17,35 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.droidplanner.R;
+import com.droidplanner.activitys.SuperActivity;
 import com.droidplanner.widgets.FPV.MjpegInputStream;
-import com.droidplanner.widgets.FPV.MjpegView;
+import com.droidplanner.widgets.HUD.FpvHudWidget;
 
-public class FpvHudFragment extends HudFragment {
+public class FpvHudFragment extends Fragment {
 
 	// sample public cam
 	// String URL =
 	// "http://trackfield.webcam.oregonstate.edu/axis-cgi/mjpg/video.cgi?resolution=800x600&amp%3bdummy=1333689998337";
 	String URL = "http://192.168.40.143:81/videostream.cgi?user=admin&pwd=&resolution=32&rate=10";
-
-	private MjpegView vv;
+	
+	private FpvHudWidget hudWidget;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		View view = super.onCreateView(inflater, container, savedInstanceState);
-
-		vv = (MjpegView) view.findViewById(R.id.mjpegView1);
-		vv.setBackgroundColor(Color.argb(0, 0, 0, 0));
-		new DoRead().execute(URL);
+		View view = inflater.inflate(R.layout.fpv_hud_fragment, container,false);
+		hudWidget = (FpvHudWidget) view.findViewById(R.id.fpvHudWidget);
+		hudWidget.setDrone(((SuperActivity)getActivity()).app.drone);
+		hudWidget.onDroneUpdate();
+		
+		//vv = (MjpegView) view.findViewById(R.id.mjpegView1);
+		//vv.setBackgroundColor(Color.argb(0, 0, 0, 0));
+		//new DoRead().execute(URL);
 
 		return view;
 	}
 
-	@Override
-	protected View inflateView(LayoutInflater inflater, ViewGroup container) {
-		View view = inflater.inflate(R.layout.fpv_hud_fragment, container,
-				false);
-		return view;
-	}
+	
 
 	public class DoRead extends AsyncTask<String, Void, MjpegInputStream> {
 		private static final String TAG = "FPV";
@@ -82,9 +80,9 @@ public class FpvHudFragment extends HudFragment {
 		}
 
 		protected void onPostExecute(MjpegInputStream result) {
-			vv.setSource(result);
-			vv.setDisplayMode(MjpegView.SIZE_BEST_FIT);
-			vv.showFps(true);
+			//vv.setSource(result);
+			//vv.setDisplayMode(MjpegView.SIZE_BEST_FIT);
+			//vv.showFps(true);
 		}
 	}
 }

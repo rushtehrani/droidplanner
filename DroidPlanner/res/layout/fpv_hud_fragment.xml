@@ -5,15 +5,9 @@
     android:orientation="horizontal" >
 
     <com.droidplanner.widgets.HUD.FpvHudWidget
-        android:id="@+id/hudWidget"
+        android:id="@+id/fpvHudWidget"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5" />
+        android:layout_height="match_parent"/>
     
-    <com.droidplanner.widgets.FPV.MjpegView
-        android:id="@+id/mjpegView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5" />
 
 </LinearLayout>
