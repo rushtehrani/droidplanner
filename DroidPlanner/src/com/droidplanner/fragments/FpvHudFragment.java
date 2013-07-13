@@ -77,7 +77,7 @@ public class FpvHudFragment extends Fragment {
 		}
 
 		protected void onPostExecute(MjpegInputStream result) {
-			fpvHudWidget.setSource(result);
+			fpvHudWidget.fpvOverlay.setSource(result);
 		}
 	}
 }

@@ -1,29 +1,18 @@
 package com.droidplanner.widgets.HUD;
 
-import java.io.IOException;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 
-import com.droidplanner.widgets.FPV.MjpegInputStream;
+import com.droidplanner.widgets.HUD.FpvOverlay.DisplayMode;
 
 public class FpvHudWidget extends HUDwidget {
-	public enum DisplayMode {
-		SIZE_STANDARD,SIZE_BEST_FIT,SIZE_FULLSCREEN
-	}
 	
-    private MjpegInputStream mIn = null; 
-    private Bitmap bm;
-    private Paint p = new Paint();
-	private DisplayMode displayMode = DisplayMode.SIZE_BEST_FIT;
-
+	public FpvOverlay fpvOverlay = new FpvOverlay(DisplayMode.SIZE_BEST_FIT);
+	
 	public FpvHudWidget(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
 	}
@@ -66,16 +55,7 @@ public class FpvHudWidget extends HUDwidget {
 		
 
 		// Draw the background
-		try {
-			if (mIn != null) {
-				bm = mIn.readMjpegFrame();
-                Rect destRect = destRect(bm);
-				canvas.drawBitmap(bm, null, destRect, p);				
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		fpvOverlay.drawFPV(canvas, width,attHeightPx);
         
 		canvas.rotate(-(int) roll);
 		
@@ -107,32 +87,6 @@ public class FpvHudWidget extends HUDwidget {
 		}
 
 		canvas.rotate((int) roll);
-	}
-	
-    private Rect destRect(Bitmap picture) {
-    	int bmw = picture.getWidth();
-		int bmh = picture.getHeight();
-		switch (displayMode) {
-		default:
-		case SIZE_STANDARD:
-			return new Rect(-(bmw / 2), -(bmh / 2),(bmw / 2), (bmh / 2));
-		case SIZE_BEST_FIT:
-			float bmasp = (float) bmw / (float) bmh;
-			bmw = width;
-			bmh = (int) (width / bmasp);
-			if (bmh > attHeightPx) {
-				bmh = attHeightPx;
-				bmw = (int) (attHeightPx * bmasp);
-			}
-			return new Rect(-(bmw / 2), -(bmh / 2),(bmw / 2), (bmh / 2));
-		case SIZE_FULLSCREEN:
-			return new Rect(-width/2, -attHeightPx/2, width/2, attHeightPx/2);
-		}
-	}
-
-	public void setSource(MjpegInputStream source) {
-		Log.d("FPV", "setSource");
-		mIn = source;		
 	}
 
 }
