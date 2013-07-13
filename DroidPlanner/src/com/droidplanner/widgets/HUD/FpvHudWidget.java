@@ -65,9 +65,8 @@ public class FpvHudWidget extends HUDwidget {
 		// Draw the background
 		try {
 			if (mIn != null) {
-				Log.d("FPV", "mIn not null");
 				bm = mIn.readMjpegFrame();
-				canvas.drawBitmap(bm, null, new Rect(-width, -height, width, height), p);				
+				canvas.drawBitmap(bm, null, new Rect(-width/2, -attHeightPx/2, width/2, attHeightPx/2), p);				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
