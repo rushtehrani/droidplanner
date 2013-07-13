@@ -71,4 +71,13 @@ public class FpvOverlay {
 					canvasWidth / 2, canvasHeight / 2);
 		}
 	}
+
+	public void startStreaming(String URL) {
+		new MjpegStreamBuilder() {
+			@Override
+			public void setSource(MjpegInputStream result) {
+				setSource(result);
+			}
+		}.execute(URL);
+	}
 }
