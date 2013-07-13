@@ -55,14 +55,17 @@ public class FpvHudWidget extends HUDwidget {
 		
 
 		// Draw the background
-		fpvOverlay.drawFPV(canvas, width,attHeightPx);
+		if (fpvOverlay.isEnabled()) {
+			fpvOverlay.drawFPV(canvas, width,attHeightPx);			
+			canvas.rotate(-(int) roll);
+			canvas.drawLine(-width, pitchOffsetPx, width, pitchOffsetPx, whiteThinTics);
+		}else{
+			canvas.rotate(-(int) roll);
+			canvas.drawRect(-width, pitchOffsetPx, width, 2 * height /* Go plenty low */, ground);
+			canvas.drawRect(-width, -2 * height /* Go plenty high */, width, pitchOffsetPx, sky);
+			canvas.drawLine(-width, pitchOffsetPx, width, pitchOffsetPx, whiteThinTics);
+		}
         
-		canvas.rotate(-(int) roll);
-		
-		//canvas.drawRect(-width, pitchOffsetPx, width, 2 * height /* Go plenty low */, ground);
-		//canvas.drawRect(-width, -2 * height /* Go plenty high */, width, pitchOffsetPx, sky);
-		canvas.drawLine(-width, pitchOffsetPx, width, pitchOffsetPx, whiteThinTics);
-		
 		// Draw roll triangle
 		Path arrow = new Path();
 		int tempOffset = Math.round(plane.getStrokeWidth() + whiteBorder.getStrokeWidth() / 2);
