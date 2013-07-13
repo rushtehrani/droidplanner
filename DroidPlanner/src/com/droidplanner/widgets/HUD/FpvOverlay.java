@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 
-import com.droidplanner.widgets.FPV.MjpegInputStream;
+import com.droidplanner.widgets.HUD.fpvStream.MjpegInputStream;
 
 public class FpvOverlay {
 	

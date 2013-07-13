@@ -1,4 +1,4 @@
-package com.droidplanner.widgets.FPV;
+package com.droidplanner.widgets.HUD.fpvStream;
 
 import java.io.IOException;
 import java.net.URI;

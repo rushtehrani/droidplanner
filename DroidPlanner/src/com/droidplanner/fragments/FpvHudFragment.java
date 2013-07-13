@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 import com.droidplanner.R;
 import com.droidplanner.activitys.SuperActivity;
-import com.droidplanner.widgets.FPV.MjpegInputStream;
-import com.droidplanner.widgets.FPV.MjpegStreamBuilder;
 import com.droidplanner.widgets.HUD.FpvHudWidget;
 import com.droidplanner.widgets.HUD.FpvOverlay;
+import com.droidplanner.widgets.HUD.fpvStream.MjpegInputStream;
+import com.droidplanner.widgets.HUD.fpvStream.MjpegStreamBuilder;
 
 public class FpvHudFragment extends Fragment {
 

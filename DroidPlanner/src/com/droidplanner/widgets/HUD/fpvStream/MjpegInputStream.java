@@ -3,7 +3,7 @@
  * 
  */
 
-package com.droidplanner.widgets.FPV;
+package com.droidplanner.widgets.HUD.fpvStream;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
