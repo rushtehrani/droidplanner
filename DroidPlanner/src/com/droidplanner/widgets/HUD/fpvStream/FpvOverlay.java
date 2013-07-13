@@ -1,4 +1,4 @@
-package com.droidplanner.widgets.HUD;
+package com.droidplanner.widgets.HUD.fpvStream;
 
 import java.io.IOException;
 
@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 
-import com.droidplanner.widgets.HUD.fpvStream.MjpegInputStream;
 
 public class FpvOverlay {
 
@@ -33,7 +32,7 @@ public class FpvOverlay {
 		mIn = source;
 	}
 
-	void drawFPV(Canvas canvas, int canvasWidth, int canvasHeight) {
+	public void drawFPV(Canvas canvas, int canvasWidth, int canvasHeight) {
 		if (isEnabled()) {
 			try {
 				bm = mIn.readMjpegFrame();

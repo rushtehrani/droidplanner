@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import com.droidplanner.R;
 import com.droidplanner.activitys.SuperActivity;
-import com.droidplanner.widgets.HUD.FpvOverlay;
 import com.droidplanner.widgets.HUD.HUDwidget;
+import com.droidplanner.widgets.HUD.fpvStream.FpvOverlay;
 import com.droidplanner.widgets.HUD.fpvStream.MjpegInputStream;
 import com.droidplanner.widgets.HUD.fpvStream.MjpegStreamBuilder;
 
