@@ -2,13 +2,17 @@ package com.droidplanner.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.droidplanner.R;
 import com.droidplanner.activitys.SuperActivity;
+import com.droidplanner.widgets.HUD.FpvOverlay;
 import com.droidplanner.widgets.HUD.HUDwidget;
+import com.droidplanner.widgets.HUD.fpvStream.MjpegInputStream;
+import com.droidplanner.widgets.HUD.fpvStream.MjpegStreamBuilder;
 
 
 public class HudFragment extends Fragment{
@@ -22,6 +26,14 @@ public class HudFragment extends Fragment{
 		hudWidget = (HUDwidget) view.findViewById(R.id.hudWidget);
 		hudWidget.setDrone(((SuperActivity)getActivity()).app.drone);
 		hudWidget.onDroneUpdate();
+				
+		new MjpegStreamBuilder() {
+			@Override
+			public void setSource(MjpegInputStream result) {
+				hudWidget.fpvOverlay.setSource(result);
+				Log.d("FPV", "aquireSource");
+			}
+		}.execute(FpvOverlay.URL);
 		return view;
 	}
 }

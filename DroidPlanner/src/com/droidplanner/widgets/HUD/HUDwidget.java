@@ -18,6 +18,7 @@ import android.view.SurfaceView;
 import com.MAVLink.Messages.ApmModes;
 import com.droidplanner.MAVLink.Drone;
 import com.droidplanner.MAVLink.Drone.HudUpdatedListner;
+import com.droidplanner.widgets.HUD.FpvOverlay.DisplayMode;
 
 /**
  * Widget for a HUD Originally copied from http://code.google.com/p/copter-gcs/
@@ -160,6 +161,8 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 	Paint blackSolid = new Paint();
 	Paint blueVSI = new Paint();
 	Paint greenPen = new Paint();
+
+	public FpvOverlay fpvOverlay = new FpvOverlay(DisplayMode.SIZE_BEST_FIT);
 	
 	protected Drone drone;
 	
@@ -357,13 +360,22 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 		int pitchOffsetPx = (int) (pitch * pitchPixPerDegree);
 		int rollTriangleBottom = -attHeightPx / 2 + rollTopOffsetPx / 2 + rollTopOffsetPx;
 		
-		canvas.rotate(-(int) roll);
+		// Draw the FPV overlay if needed
+		if (fpvOverlay.isEnabled()) {
+			fpvOverlay.drawFPV(canvas, width,attHeightPx);
+		}
 
-		// Draw the background
-		canvas.drawRect(-width, pitchOffsetPx, width, 2 * height /* Go plenty low */, ground);
-		canvas.drawRect(-width, -2 * height /* Go plenty high */, width, pitchOffsetPx, sky);
-		canvas.drawLine(-width, pitchOffsetPx, width, pitchOffsetPx, whiteThinTics);
+		canvas.rotate(-(int) roll);
 		
+		// Draw the background as required		
+		if (!fpvOverlay.isEnabled()) {
+			canvas.drawRect(-width, pitchOffsetPx, width, 2 * height /* Go plenty low */, ground);
+			canvas.drawRect(-width, -2 * height /* Go plenty high */, width, pitchOffsetPx, sky);
+		}
+		
+		// Draw the horizon line		
+		canvas.drawLine(-width, pitchOffsetPx, width, pitchOffsetPx, whiteThinTics);
+        
 		// Draw roll triangle
 		Path arrow = new Path();
 		int tempOffset = Math.round(plane.getStrokeWidth() + whiteBorder.getStrokeWidth() / 2);
