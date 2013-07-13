@@ -11,13 +11,20 @@ import com.droidplanner.widgets.FPV.MjpegInputStream;
 
 public class FpvOverlay {
 	
+	// sample public cam
+	// String URL =
+	// "http://trackfield.webcam.oregonstate.edu/axis-cgi/mjpg/video.cgi?resolution=800x600&amp%3bdummy=1333689998337";
+	public final static String URL = "http://192.168.40.143:81/videostream.cgi?user=admin&pwd=&resolution=32&rate=10";
+
+	
 	public enum DisplayMode {
 		SIZE_STANDARD,SIZE_BEST_FIT,SIZE_FULLSCREEN
-	}
-	
+	}	
+
 	public DisplayMode displayMode;
 	public MjpegInputStream mIn;
 	public Bitmap bm;
+	
 
 	public FpvOverlay(DisplayMode displayMode) {
 		this.displayMode = displayMode;
