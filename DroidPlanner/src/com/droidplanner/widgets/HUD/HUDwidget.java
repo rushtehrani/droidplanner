@@ -163,7 +163,7 @@ public class HUDwidget extends SurfaceView implements SurfaceHolder.Callback, Hu
 	Paint blueVSI = new Paint();
 	Paint greenPen = new Paint();
 
-	public FpvOverlay fpvOverlay = new FpvOverlay(DisplayMode.SIZE_BEST_FIT);
+	public FpvOverlay fpvOverlay = new FpvOverlay(DisplayMode.SIZE_BEST_FIT,this);
 	
 	protected Drone drone;
 	
