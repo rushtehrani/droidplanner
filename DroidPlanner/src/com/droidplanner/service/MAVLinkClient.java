@@ -11,20 +11,25 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.MAVLink.Messages.MAVLinkMessage;
 import com.MAVLink.Messages.MAVLinkPacket;
+import com.MAVLink.Messages.MAVLinkStats;
 
 // provide a common class for some ease of use functionality
 public class MAVLinkClient {
 	public static final int MSG_RECEIVED_DATA = 0;
 	public static final int MSG_SELF_DESTRY_SERVICE = 1;
+	public static final int MSG_MAVLINK_STATS = 2;
 
 	Context parent;
 	private OnMavlinkClientListner listner;
 	Messenger mService = null;
 	final Messenger mMessenger = new Messenger(new IncomingHandler());
 	private boolean mIsBound;
+
+	public MAVLinkStats statsClone = new MAVLinkStats();
 
 	public interface OnMavlinkClientListner {
 		public void notifyConnected();
@@ -82,6 +87,11 @@ public class MAVLinkClient {
 				Bundle b = msg.getData();
 				MAVLinkMessage m = (MAVLinkMessage) b.getSerializable("msg");
 				listner.notifyReceivedData(m);
+				break;
+			case MSG_MAVLINK_STATS:
+				Bundle data = msg.getData();
+				statsClone = (MAVLinkStats) data.getSerializable("msg");
+				//Log.d("MAV", statsClone.toString());
 				break;
 			case MSG_SELF_DESTRY_SERVICE:
 				close();

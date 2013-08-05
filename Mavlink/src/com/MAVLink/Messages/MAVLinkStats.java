@@ -1,6 +1,6 @@
 package com.MAVLink.Messages;
 
-import android.util.Log;
+import java.io.Serializable;
 
 /**
  * Storage for MAVLink Packet and Error statistics
@@ -8,7 +8,9 @@ import android.util.Log;
  * @author Helibot
  * 
  */
-public class MAVLinkStats /* implements Serializable */{
+public class MAVLinkStats  implements Serializable {
+
+	private static final long serialVersionUID = -2714033136468225449L;
 
 	public int receivedPacketCount;
 
@@ -18,6 +20,10 @@ public class MAVLinkStats /* implements Serializable */{
 
 	private int lastPacketSeq;
 
+	public MAVLinkStats() {
+		mavlinkResetStats();
+	}
+
 	/**
 	 * Check the new received packet to see if has lost someone between this and
 	 * the last packet
@@ -26,9 +32,6 @@ public class MAVLinkStats /* implements Serializable */{
 	 *            Packet that should be checked
 	 */
 	public void newPacket(MAVLinkPacket packet) {
-		Log.d("MAVLINK", "rxPkt " + packet.seq + "," + lastPacketSeq + ","
-				+ lostPacketCount + "," + crcErrorCount + ","
-				+ receivedPacketCount);
 
 		advanceLastPacketSequence();
 		if (hasLostPackets(packet)) {
@@ -72,6 +75,13 @@ public class MAVLinkStats /* implements Serializable */{
 		lostPacketCount = 0;
 		crcErrorCount = 0;
 		receivedPacketCount = 0;
+	}
+
+	@Override
+	public String toString() {
+		return "lastPacket " + lastPacketSeq + ", lostCount"
+				+ lostPacketCount + ", errorCount" + crcErrorCount + ", receivedCount"
+				+ receivedPacketCount;
 	}
 
 }

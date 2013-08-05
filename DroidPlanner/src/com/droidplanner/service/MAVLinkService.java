@@ -19,6 +19,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.MAVLink.Messages.MAVLinkMessage;
 import com.MAVLink.Messages.MAVLinkPacket;
+import com.MAVLink.Messages.MAVLinkStats;
 import com.droidplanner.R;
 import com.droidplanner.activitys.FlightDataActivity;
 import com.droidplanner.connection.MAVLinkConnection;
@@ -87,6 +88,21 @@ public class MAVLinkService extends Service implements MavLinkConnectionListner 
 						MAVLinkClient.MSG_RECEIVED_DATA);
 				Bundle data = new Bundle();
 				data.putSerializable("msg", m);
+				msg.setData(data);
+				msgCenter.send(msg);
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateClientStats(MAVLinkStats stats) {
+		try {
+			if (msgCenter != null) {
+				Message msg = Message.obtain(null,
+						MAVLinkClient.MSG_MAVLINK_STATS);
+				Bundle data = new Bundle();
+				data.putSerializable("msg", stats);
 				msg.setData(data);
 				msgCenter.send(msg);
 			}

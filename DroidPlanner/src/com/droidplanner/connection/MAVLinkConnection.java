@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import com.MAVLink.Parser;
 import com.MAVLink.Messages.MAVLinkMessage;
 import com.MAVLink.Messages.MAVLinkPacket;
+import com.MAVLink.Messages.MAVLinkStats;
 import com.droidplanner.file.FileStream;
 
 public abstract class MAVLinkConnection extends Thread {
@@ -31,6 +32,8 @@ public abstract class MAVLinkConnection extends Thread {
 
 	public interface MavLinkConnectionListner {
 		public void onReceiveMessage(MAVLinkMessage msg);
+		
+		public void updateClientStats(MAVLinkStats stats);
 
 		public void onDisconnect();
 	}
@@ -73,6 +76,7 @@ public abstract class MAVLinkConnection extends Thread {
 			while (connected) {
 				readDataBlock();
 				handleData();
+				listner.updateClientStats(parser.stats);
 			}
 			closeConnection();
 		} catch (FileNotFoundException e) {
