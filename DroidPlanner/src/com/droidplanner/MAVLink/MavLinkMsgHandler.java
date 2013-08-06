@@ -18,13 +18,23 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class MavLinkMsgHandler {
 
-	private Drone drone;
+	private Drone drone1;
+	private Drone drone2;
 
-	public MavLinkMsgHandler(Drone drone) {
-		this.drone = drone;
+	public MavLinkMsgHandler(Drone drone1, Drone drone2) {
+		this.drone1 = drone1;
+		this.drone2 = drone2;
 	}
 
 	public void receiveData(MAVLinkMessage msg) {
+		Drone drone;
+		if (msg.sysid == 2) {
+			drone = drone2;
+		} else {
+			drone = drone1;
+		}
+		
+		
 		drone.waypointMananger.processMessage(msg);
 		drone.parameters.processMessage(msg);
 		drone.calibrationSetup.processMessage(msg);

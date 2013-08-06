@@ -86,6 +86,7 @@ public abstract class SuperFlightActivity extends SuperActivity implements
 		fligthModeSpinner.updateModeSpinner(drone);
 		if (mapFragment != null) {
 			mapFragment.droneMarker.updateDroneMarkers();
+			mapFragment.droneMarker2.updateDroneMarkers();
 		}
 	}
 

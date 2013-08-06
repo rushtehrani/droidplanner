@@ -43,7 +43,7 @@ public class DroidPlannerApp extends Application implements
 		followMe = new FollowMe(this, drone);
 		recordMe = new RecordMe(this, drone);
 		mavLinkMsgHandler = new com.droidplanner.MAVLink.MavLinkMsgHandler(
-				drone);
+				drone,drone2);
 	}
 
 	@Override
