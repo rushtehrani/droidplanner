@@ -64,6 +64,7 @@ public class FlightDataActivity extends SuperFlightActivity implements
 		super.onDroneTypeChanged();
 		Log.d("DRONE", "Drone type changed");
 		mapFragment.droneMarker.updateDroneMarkers();
+		mapFragment.droneMarker2.updateDroneMarkers();
 	}
 
 }

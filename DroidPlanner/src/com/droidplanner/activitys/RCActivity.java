@@ -106,6 +106,7 @@ public class RCActivity extends SuperFlightActivity implements
 		Log.d("DRONE", "Drone type changed");
 		if (mapFragment != null) {
 			mapFragment.droneMarker.updateDroneMarkers();
+			mapFragment.droneMarker2.updateDroneMarkers();
 		}
 	}
 

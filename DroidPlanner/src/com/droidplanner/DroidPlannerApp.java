@@ -15,6 +15,7 @@ import com.droidplanner.service.MAVLinkClient.OnMavlinkClientListner;
 public class DroidPlannerApp extends Application implements
 		OnMavlinkClientListner {
 	public Drone drone;
+	public Drone drone2;
 	private MavLinkMsgHandler mavLinkMsgHandler;
 	public FollowMe followMe;
 	public RecordMe recordMe;
@@ -38,6 +39,7 @@ public class DroidPlannerApp extends Application implements
 		tts = new TTS(this);
 		MAVLinkClient MAVClient = new MAVLinkClient(this, this);
 		drone = new Drone(tts, MAVClient, getApplicationContext());
+		drone2 = new Drone(tts, MAVClient, getApplicationContext());
 		followMe = new FollowMe(this, drone);
 		recordMe = new RecordMe(this, drone);
 		mavLinkMsgHandler = new com.droidplanner.MAVLink.MavLinkMsgHandler(

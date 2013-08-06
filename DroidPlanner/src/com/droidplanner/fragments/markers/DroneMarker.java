@@ -1,5 +1,6 @@
 package com.droidplanner.fragments.markers;
 
+import com.droidplanner.drone.Drone;
 import com.droidplanner.drone.DroneInterfaces.MapUpdatedListner;
 import com.droidplanner.fragments.FlightMapFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,9 +12,11 @@ public class DroneMarker implements MapUpdatedListner {
 	private Marker droneMarker;
 	private FlightMapFragment flightMapFragment;
 	private DroneBitmaps bitmaps;
+	private Drone drone;
 
-	public DroneMarker(FlightMapFragment flightMapFragment) {
+	public DroneMarker(FlightMapFragment flightMapFragment, Drone drone) {
 		this.flightMapFragment = flightMapFragment;
+		this.drone = drone;
 		updateDroneMarkers();
 	}
 
@@ -55,13 +58,12 @@ public class DroneMarker implements MapUpdatedListner {
 
 	private void buildBitmaps() {
 		bitmaps = new DroneBitmaps(flightMapFragment.getResources(),
-				flightMapFragment.drone.type.getType());
+				drone.type.getType());
 	}
 
 	public void onDroneUpdate() {
-		updatePosition(flightMapFragment.drone.orientation.getYaw(),
-				flightMapFragment.drone.GPS.getPosition());
-		flightMapFragment.addFlithPathPoint(flightMapFragment.drone.GPS
-				.getPosition());
+		updatePosition(drone.orientation.getYaw(),
+				drone.GPS.getPosition());
+		//flightMapFragment.addFlithPathPoint(drone.GPS.getPosition());
 	}
 }

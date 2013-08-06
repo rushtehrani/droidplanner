@@ -34,6 +34,7 @@ public abstract class SuperActivity extends Activity implements
 
 	public DroidPlannerApp app;
 	public Drone drone;
+	public Drone drone2;
 	private MenuItem connectButton;
 
 	private ScreenOrientation screenOrientation = new ScreenOrientation(this);
@@ -53,6 +54,7 @@ public abstract class SuperActivity extends Activity implements
 		app = (DroidPlannerApp) getApplication();
 		app.conectionListner = this;
 		this.drone = app.drone;
+		this.drone2 = app.drone2;
 
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		screenOrientation.unlock();

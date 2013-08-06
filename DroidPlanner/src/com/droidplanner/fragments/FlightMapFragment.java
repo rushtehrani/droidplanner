@@ -40,7 +40,9 @@ public class FlightMapFragment extends OfflineMapFragment implements
 	public boolean hasBeenZoomed = false;
 
 	public DroneMarker droneMarker;
+	public DroneMarker droneMarker2;
 	public Drone drone;
+	public Drone drone2;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
@@ -48,16 +50,19 @@ public class FlightMapFragment extends OfflineMapFragment implements
 		View view = super.onCreateView(inflater, viewGroup, bundle);
 		mMap = getMap();
 		drone = ((DroidPlannerApp) getActivity().getApplication()).drone;
+		drone2 = ((DroidPlannerApp) getActivity().getApplication()).drone2;
 
 		markers = new MarkerManager(mMap);
 
-		droneMarker = new DroneMarker(this);
+		droneMarker = new DroneMarker(this,drone);
+		droneMarker2 = new DroneMarker(this,drone2);
 
 		addFlightPathToMap();
 		addMissionPathToMap();
 		getPreferences();
 
 		drone.setMapListner(droneMarker);
+		drone2.setMapListner(droneMarker2);
 		mMap.setOnMapLongClickListener(this);
 
 		return view;
