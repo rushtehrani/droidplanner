@@ -1,3 +1,19 @@
+## Droidplanner v0.12.1b
+* Removing debug info that passed trough on the last release
+
+## Droidplanner v0.12.1
+* UDP support
+* Better layout on the preference screen
+* Fix the MAVLink library
+
+## Droidplanner v0.12.0
+* Add suport for direct USB connection
+* Fix chinise translation
+
+## Droidplanner v0.11.4
+* Compatible with ArduRover
+* Dynamicaly allocated on-screen joysticks
+
 ## Droidplanner v0.11.3
 * Preferences for the RC screen (Mode1/Mode2, Inverted Channel, QuickButtons)
 
