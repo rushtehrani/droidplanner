@@ -71,11 +71,23 @@ public class Mission extends DroneVariable {
 	}
 
 	public void setWaypoints(List<waypoint> waypoints) {
-		this.waypoints = waypoints;
+		this.waypoints.clear();
+		this.waypoints.addAll(waypoints);
 	}
 
 	public void addWaypoints(List<waypoint> points) {
-		waypoints.addAll(points);
+		
+		//Loop through every wp and add it to the wp list
+		for (waypoint wp : points) {
+			addWaypoint(wp);
+		}
+//		waypoints.addAll(points);
+	}
+
+	public void addWaypointsWithDefaultAltitude(List<LatLng> coords) {
+		for (LatLng coord : coords) {
+			addWaypoint(coord);
+		}
 	}
 
 	private void addWaypoint(waypoint wp) {
@@ -127,7 +139,7 @@ public class Mission extends DroneVariable {
 	public void setHome(LatLng home) {
 		this.home.setCoord(home);
 	}
-
+	
 	public void moveWaypoint(LatLng coord, int number) {
 		waypoints.get(number).setCoord(coord);
 	}
@@ -160,4 +172,13 @@ public class Mission extends DroneVariable {
 	public void notifyMissionUpdate() {
 		missionListner.onWaypointsUpdate();
 	}
+
+	public void sendMissionToAPM() {
+		List<waypoint> data = new ArrayList<waypoint>();
+		data.add(getHome());
+		data.addAll(getWaypoints());
+		myDrone.waypointMananger.writeWaypoints(data);
+	}
+
+
 }
