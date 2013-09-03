@@ -10,6 +10,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class PathFillet {
 
+	private static final double FILLET_MINIMAL_DISTANCE_FACTOR = 1.1;
+
 	public static List<waypoint> filletPath(List<waypoint> list, double radius) {
 		ArrayList<waypoint> filletedList = new ArrayList<waypoint>();
 		filletedList.add(list.get(0));
@@ -28,25 +30,37 @@ public class PathFillet {
 
 		double angle = getAngleBetweenLines(after.getCoord(),
 				center.getCoord(), previus.getCoord());
+		double distanceFromStart = Math.abs(radius
+				/ (Math.tan(Math.toRadians(angle) / 2)));
+		
+		Log.d("FILLET", "iteration " + i + " distance "
+				+ distanceFromStart + " angle " + angle);
 
-		if (angle < 150) {
-			filletCorner(radius, filletedList, i, previus, center, after, angle);
+		if (angle < 150 & isDistanceEnoughForFillet(previus, center, after, distanceFromStart)) {
+			filletCorner(filletedList, distanceFromStart, previus, center, after);
 		} else {
 			filletedList.add(center);
 		}
 	}
 
-	private static void filletCorner(double radius,
-			ArrayList<waypoint> filletedList, int i, waypoint previus,
-			waypoint center, waypoint after, double angle) {
-		double distanceFromStart = Math.abs(radius
-				/ (Math.tan(Math.toRadians(angle) / 2)));
-		Log.d("FILLET", "iteration " + i + " distance "
-				+ distanceFromStart + " angle " + angle);
+	private static boolean isDistanceEnoughForFillet(waypoint previus,
+			waypoint center, waypoint after, double distanceFromStart) {
+		if (GeoTools.getDistance(previus.getCoord(), center.getCoord())*FILLET_MINIMAL_DISTANCE_FACTOR<distanceFromStart) {
+			return false;
+		}
+		if (GeoTools.getDistance(after.getCoord(), center.getCoord())*FILLET_MINIMAL_DISTANCE_FACTOR<distanceFromStart){
+			return false;
+		}
+		return true;
+	}
+
+	private static void filletCorner(ArrayList<waypoint> filletedList,
+			double radius, waypoint previus, waypoint center,
+			waypoint after) {
 		LatLng filletPrevius = generatePointOnLine(center.getCoord(),
-				previus.getCoord(), distanceFromStart);
+				previus.getCoord(), radius);
 		LatLng filletAfter = generatePointOnLine(center.getCoord(),
-				after.getCoord(), distanceFromStart);
+				after.getCoord(), radius);
 
 		filletedList
 				.add(new waypoint(filletPrevius, center.getHeight()));
