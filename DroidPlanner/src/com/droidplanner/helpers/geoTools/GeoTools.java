@@ -99,7 +99,7 @@ public class GeoTools {
 	 * 
 	 * @return heading in degrees
 	 */
-	static double getHeadingFromCoordinates(LatLng fromLoc, LatLng toLoc) {
+	public static double getHeadingFromCoordinates(LatLng fromLoc, LatLng toLoc) {
 		double fLat = Math.toRadians(fromLoc.latitude);
 		double fLng = Math.toRadians(fromLoc.longitude);
 		double tLat = Math.toRadians(toLoc.latitude);

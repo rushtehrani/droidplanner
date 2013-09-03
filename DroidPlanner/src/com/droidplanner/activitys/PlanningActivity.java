@@ -28,6 +28,8 @@ import com.droidplanner.fragments.helpers.GestureMapFragment;
 import com.droidplanner.fragments.helpers.OnMapInteractionListener;
 import com.droidplanner.fragments.helpers.GestureMapFragment.OnPathFinishedListner;
 import com.droidplanner.fragments.helpers.MapProjection;
+import com.droidplanner.helpers.geoTools.PathFillet;
+import com.droidplanner.helpers.geoTools.PointTools;
 import com.droidplanner.polygon.Polygon;
 import com.droidplanner.polygon.PolygonPoint;
 import com.google.android.gms.maps.model.LatLng;
@@ -108,8 +110,10 @@ public class PlanningActivity extends SuperActivity implements
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_zoom:
-			planningMapFragment
-					.zoomToExtents(drone.mission.getAllVisibleCoordinates());
+			drone.mission.setWaypoints(PathFillet.filletPath(drone.mission.getWaypoints(),10));
+			update();
+			//TODO remove this debug code, and restore the following line
+			//planningMapFragment.zoomToExtents(drone.mission.getAllVisibleCoordinates());
 			return true;
 		case R.id.menu_save_file:
 			menuSaveFile();
