@@ -28,6 +28,7 @@ import com.droidplanner.activitys.ParametersActivity;
 import com.droidplanner.activitys.PlanningActivity;
 import com.droidplanner.activitys.RCActivity;
 import com.droidplanner.activitys.SettingsActivity;
+import com.droidplanner.activitys.FirstPersonViewActivity;
 import com.droidplanner.dialogs.AltitudeDialog;
 import com.droidplanner.dialogs.AltitudeDialog.OnAltitudeChangedListner;
 import com.droidplanner.dialogs.checklist.PreflightDialog;
@@ -102,7 +103,8 @@ public abstract class SuperActivity extends Activity implements
 			navigationIntent = new Intent(this, ParametersActivity.class);
 			break;
 		case 4: // Camera
-			navigationIntent = new Intent(this, CameraActivity.class);
+			//navigationIntent = new Intent(this, CameraActivity.class);
+			navigationIntent = new Intent(this, FirstPersonViewActivity.class);
 			break;
 		case 5: // GCP
 			navigationIntent = new Intent(this, GCPActivity.class);
